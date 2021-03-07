@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import FeedbackForm from './FeedbackForm';
 import PredictForm from './PredictForm';
 import MapBox from './MapBox';
+import title from '../assets/title.png';
 
 const PageContainerStyle = styled.div`
     width: 66%;
@@ -36,7 +37,7 @@ const MainPage = () => {
 
     const getCurrentTime = () => {
         var date = new Date();
-        setCurrentTime(date.toLocaleDateString());
+        setCurrentTime(date.toLocaleString());
     }
 
     const reset = () => {
@@ -49,12 +50,29 @@ const MainPage = () => {
         getCurrentLocation();        
     }
 
+
+    const API_URL = '';
     const initializeProcessing = () => {
         getCurrentTime();
 
         setLoading(true);
         // do processing
-
+        // fetch(API_URL, 
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify({
+        //             location: currentLocation,
+        //             time: currentTime,
+        //         })
+        //     })
+        // .then(resp => resp.json())
+        // .then((data) => {
+        //     setPrediction(data);
+        // })
+        // .catch(console.log)
 
         setTimeout(() => setLoading(false), 2000);
         // setLoading(false);
@@ -65,8 +83,9 @@ const MainPage = () => {
         <PageContainerStyle>
             <Header as='h1'> 
             <Header.Content>
-                Risky Ticket
-                <Header.Subheader>Toronto</Header.Subheader>
+                <img src={title} alt='Calculated Ticket' style={{
+                    height: '75px'
+                }} />
             </Header.Content>
             </Header>
 
@@ -79,7 +98,7 @@ const MainPage = () => {
                 <></>
             }
 
-            <div style={{ }}>
+            <div style={{ margin:"0 auto", padding:'2px', width:'65%', textAlign: 'center' }}>
                 {start ? 
                 <MapBox coords={[currentLocation.latitude, currentLocation.longitude]} />
                 : <></>
